@@ -307,7 +307,7 @@ export default function OrderStatusPage() {
           </div>
           <button 
             onClick={requestPermission}
-            className="bg-ember text-charcoal font-bold py-2 px-4 uppercase text-xs tracking-wider hover:bg-ember/90 transition-colors shrink-0"
+            className="bg-ember text-black font-bold py-2 px-4 uppercase text-xs tracking-wider hover:bg-ember/90 transition-colors shrink-0"
           >
             Enable Alerts
           </button>

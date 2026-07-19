@@ -305,7 +305,7 @@ export default function CheckoutPage() {
 
               <div className="space-y-1.5">
                 <label className={`block text-xs font-bold uppercase tracking-wider transition-colors duration-300 ${isSystemDark ? 'text-cream/70' : 'text-gray-500'}`}>Transaction ID *</label>
-                <input required type="text" className={`w-full border px-3 py-2.5 text-sm focus:border-ember focus:outline-none rounded transition-all ${isSystemDark ? 'bg-charcoal/50 border-ember/50 text-cream' : 'bg-white border-gray-300 text-charcoal'}`} value={formData.transactionId} onChange={e => setFormData({...formData, transactionId: e.target.value})} />
+                <input required type="text" className={`w-full border px-3 py-2.5 text-sm focus:border-ember focus:outline-none rounded transition-all ${isSystemDark ? 'bg-charcoal/50 border-ember/50 text-cream' : 'bg-white border-gray-300 text-gray-900'}`} value={formData.transactionId} onChange={e => setFormData({...formData, transactionId: e.target.value})} />
               </div>
             </div>
           )}

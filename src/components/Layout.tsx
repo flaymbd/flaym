@@ -95,7 +95,7 @@ export default function Layout() {
   }, []);
 
   return (
-    <div className={`flex flex-col min-h-screen transition-colors duration-300 ${isSystemDark ? 'bg-charcoal text-cream' : 'bg-cream text-charcoal'} font-sans`}>
+    <div className="flex flex-col min-h-screen transition-colors duration-300 bg-charcoal text-cream font-sans">
       <header className={`sticky top-0 z-50 flex items-center justify-between px-6 py-4 backdrop-blur-md border-b transition-colors duration-300 ${isSystemDark ? 'bg-charcoal/90 border-ember/20' : 'bg-white/90 border-gray-100'}`}>
         <Link to="/" className="flex items-center gap-2 text-ember hover:text-ember/80 transition-colors">
           <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center bg-black">
@@ -108,7 +108,7 @@ export default function Layout() {
           </div>
           <span className="font-display text-4xl tracking-wider leading-none mt-1">FLAYM</span>
         </Link>
-        <nav className={`hidden md:flex items-center gap-8 font-medium transition-colors duration-300 ${isSystemDark ? 'text-cream' : 'text-charcoal'}`}>
+        <nav className={`hidden md:flex items-center gap-8 font-medium transition-colors duration-300 ${isSystemDark ? 'text-cream' : 'text-gray-900'}`}>
           <Link to="/" className="hover:text-ember transition-colors">Home</Link>
           <Link to="/menu" className="hover:text-ember transition-colors">Menu</Link>
         </nav>
@@ -120,7 +120,7 @@ export default function Layout() {
               className={`p-2 transition-colors flex items-center gap-1 focus:outline-none ${isSystemDark ? 'hover:text-ember' : 'hover:text-ember'}`}
               title="Profile & Settings"
             >
-              <User size={24} className={user ? "text-ember" : isSystemDark ? "text-cream" : "text-charcoal"} />
+              <User size={24} className={user ? "text-ember" : isSystemDark ? "text-cream" : "text-gray-900"} />
               {user && (
                 <span className={`hidden md:inline text-xs font-bold uppercase tracking-wider max-w-[80px] truncate transition-colors duration-300 ${isSystemDark ? 'text-cream/70' : 'text-gray-500'}`}>
                   {user.displayName || user.email?.split('@')[0]}
@@ -138,7 +138,7 @@ export default function Layout() {
                   <p className="text-[10px] font-bold text-ember uppercase tracking-widest">Account Status</p>
                   {user ? (
                     <div>
-                      <p className={`font-display text-lg truncate mt-1 transition-colors duration-300 ${isSystemDark ? 'text-cream' : 'text-charcoal'}`}>
+                      <p className={`font-display text-lg truncate mt-1 transition-colors duration-300 ${isSystemDark ? 'text-cream' : 'text-gray-900'}`}>
                         {user.displayName || 'FLAYM Customer'}
                       </p>
                       <p className={`text-xs truncate transition-colors duration-300 ${isSystemDark ? 'text-cream/50' : 'text-gray-500'}`}>
@@ -152,7 +152,7 @@ export default function Layout() {
                     </div>
                   ) : (
                     <div>
-                      <p className={`font-display text-lg mt-1 transition-colors duration-300 ${isSystemDark ? 'text-cream' : 'text-charcoal'}`}>Welcome to FLAYM</p>
+                      <p className={`font-display text-lg mt-1 transition-colors duration-300 ${isSystemDark ? 'text-cream' : 'text-gray-900'}`}>Welcome to FLAYM</p>
                       <p className={`text-xs transition-colors duration-300 ${isSystemDark ? 'text-cream/50' : 'text-gray-500'}`}>Sign in to track orders & view history.</p>
                     </div>
                   )}
@@ -222,7 +222,7 @@ export default function Layout() {
             onClick={() => setCartOpen(!isCartOpen)} 
             animate={isShaking ? { rotate: [-10, 10, -10, 10, 0] } : {}}
             transition={{ duration: 0.4 }}
-            className={`relative p-2 hover:text-ember transition-colors cursor-pointer focus:outline-none ${isSystemDark ? 'text-cream' : 'text-charcoal'}`}
+            className={`relative p-2 hover:text-ember transition-colors cursor-pointer focus:outline-none ${isSystemDark ? 'text-cream' : 'text-gray-900'}`}
             title="Open Cart"
           >
             <ShoppingCart size={24} />
@@ -334,26 +334,16 @@ export default function Layout() {
       </footer>
 
       {/* Slide-out Cart Drawer Overlay & Panel */}
-      <AnimatePresence>
-        {isCartOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setCartOpen(false)}
-              className="fixed inset-0 bg-black/40 z-50 cursor-pointer backdrop-blur-sm"
-            />
+      {/* Backdrop */}
+      <div
+        onClick={() => setCartOpen(false)}
+        className={`fixed inset-0 bg-black/45 z-50 cursor-pointer backdrop-blur-sm transition-opacity duration-300 ${isCartOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+      />
 
-            {/* Drawer Container */}
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'tween', duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
-              className={`fixed right-0 top-0 bottom-0 w-full max-w-md shadow-2xl z-50 flex flex-col h-screen backdrop-blur-xl border-l transition-all duration-300 ${isSystemDark ? 'bg-charcoal/95 border-cream/5 text-cream' : 'bg-white border-gray-200 text-charcoal'}`}
-            >
+      {/* Drawer Container */}
+      <div
+        className={`fixed right-0 top-0 bottom-0 w-full max-w-md shadow-2xl z-50 flex flex-col h-screen border-l transition-all duration-300 ease-in-out ${isCartOpen ? 'translate-x-0 pointer-events-auto opacity-100' : 'translate-x-full pointer-events-none opacity-0'} ${isSystemDark ? 'bg-charcoal/95 border-cream/5 text-cream' : 'bg-white border-gray-200 text-gray-900'}`}
+      >
               {/* Drawer Header */}
               <div className={`p-6 flex items-center justify-between border-b transition-colors duration-300 ${isSystemDark ? 'bg-black/20 border-cream/5' : 'bg-white border-gray-100'}`}>
                 <div className="flex items-center gap-3">
@@ -391,7 +381,7 @@ export default function Layout() {
                 ) : (
                   cartItems.map((item) => (
                     <div
-                      key={item.id}
+                       key={item.id}
                       className={`flex items-center gap-4 py-5 border-b last:border-0 transition-colors duration-300 ${isSystemDark ? 'border-cream/5' : 'border-gray-100'}`}
                     >
                       <div className="flex-grow text-left">
@@ -442,7 +432,7 @@ export default function Layout() {
                       <span>Delivery Charge</span>
                       <span className={`font-bold ${isSystemDark ? 'text-cream' : 'text-gray-900'}`}>{deliveryCharge}৳</span>
                     </div>
-                    <div className={`flex justify-between pt-4 mt-2 border-t text-lg font-bold transition-colors duration-300 ${isSystemDark ? 'border-cream/5 text-cream' : 'border-gray-200 text-charcoal'}`}>
+                    <div className={`flex justify-between pt-4 mt-2 border-t text-lg font-bold transition-colors duration-300 ${isSystemDark ? 'border-cream/5 text-cream' : 'border-gray-200 text-gray-900'}`}>
                       <span>Total</span>
                       <span className="text-ember text-xl font-display">{getTotal() + deliveryCharge}৳</span>
                     </div>
@@ -452,17 +442,14 @@ export default function Layout() {
                       setCartOpen(false);
                       navigate('/checkout');
                     }}
-                    className="w-full bg-ember text-charcoal font-bold py-4 rounded-full flex items-center justify-center gap-2 hover:bg-ember/90 transition-all uppercase tracking-wider text-sm shadow-[0_4px_20px_rgba(255,90,31,0.25)] cursor-pointer hover:scale-[1.02]"
+                    className="w-full bg-ember text-black font-bold py-4 rounded-full flex items-center justify-center gap-2 hover:bg-ember/90 transition-all uppercase tracking-wider text-sm shadow-[0_4px_20px_rgba(255,90,31,0.25)] cursor-pointer hover:scale-[1.02]"
                   >
                     Proceed to Checkout
                     <ArrowRight size={16} />
                   </button>
                 </div>
               )}
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+            </div>
 
       {/* Floating WhatsApp Support Widget with Preview Window */}
       <div className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-40 flex flex-col items-start gap-2" ref={whatsAppRef}>

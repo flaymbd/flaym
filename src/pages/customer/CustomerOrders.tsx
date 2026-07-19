@@ -127,7 +127,7 @@ export default function CustomerOrders() {
         </p>
         <Link 
           to="/auth" 
-          className="bg-ember text-charcoal font-bold py-3.5 px-8 uppercase tracking-wider text-xs hover:bg-ember/90 transition-all shadow-[0_0_15px_rgba(255,90,31,0.2)]"
+          className="bg-ember text-black font-bold py-3.5 px-8 uppercase tracking-wider text-xs hover:bg-ember/90 transition-all shadow-[0_0_15px_rgba(255,90,31,0.2)]"
           style={{ borderRadius: '6px' }}
         >
           Sign In / Sign Up
@@ -214,7 +214,7 @@ export default function CustomerOrders() {
           <p className="text-cream/40 text-sm mb-6">You haven't placed any orders yet.</p>
           <Link 
             to="/menu" 
-            className="inline-flex items-center gap-2 bg-ember text-charcoal font-bold py-3.5 px-6 uppercase tracking-wider text-xs hover:bg-ember/90 transition-all shadow-[0_0_15px_rgba(255,90,31,0.2)]"
+            className="inline-flex items-center gap-2 bg-ember text-black font-bold py-3.5 px-6 uppercase tracking-wider text-xs hover:bg-ember/90 transition-all shadow-[0_0_15px_rgba(255,90,31,0.2)]"
             style={{ borderRadius: '6px' }}
           >
             Browse Food Menu <ArrowRight size={14} />
@@ -261,7 +261,7 @@ export default function CustomerOrders() {
                   <button 
                     onClick={() => handleReorder(order)}
                     disabled={reorderingId !== null}
-                    className="flex-1 sm:flex-none justify-center bg-ember/10 hover:bg-ember border border-ember/30 text-ember hover:text-charcoal disabled:opacity-50 font-bold py-2.5 px-3 sm:py-3 sm:px-4 text-[10px] sm:text-xs uppercase tracking-wider transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer shrink-0"
+                    className="flex-1 sm:flex-none justify-center bg-ember/10 hover:bg-ember border border-ember/30 text-ember hover:text-black disabled:opacity-50 font-bold py-2.5 px-3 sm:py-3 sm:px-4 text-[10px] sm:text-xs uppercase tracking-wider transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer shrink-0"
                     style={{ borderRadius: '6px' }}
                   >
                     {reorderingId === order.id ? (

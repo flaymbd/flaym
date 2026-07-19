@@ -598,7 +598,7 @@ export default function AdminOrders() {
                 
                 <button 
                   onClick={() => setSelectedOrder(null)}
-                  className="bg-ember text-charcoal hover:bg-ember/90 px-5 py-2.5 min-h-[44px] text-xs font-bold uppercase tracking-wider cursor-pointer w-full sm:w-auto"
+                  className="bg-ember text-black hover:bg-ember/90 px-5 py-2.5 min-h-[44px] text-xs font-bold uppercase tracking-wider cursor-pointer w-full sm:w-auto"
                   style={{ borderRadius: '6px' }}
                 >
                   Close Panel

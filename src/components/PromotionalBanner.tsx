@@ -196,7 +196,7 @@ export default function PromotionalBanner({ promotions = defaultPromotions, clas
               {/* Title */}
               <h2 
                 id={`promo-title-${activePromo.id}`}
-                className={`font-display text-4xl md:text-5xl lg:text-6xl tracking-tight uppercase leading-none transition-colors duration-300 ${isSystemDark ? 'text-cream' : 'text-charcoal'}`}
+                className={`font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight uppercase leading-none transition-colors duration-300 ${isSystemDark ? 'text-cream' : 'text-gray-900'}`}
               >
                 {activePromo.title}
               </h2>
@@ -221,7 +221,7 @@ export default function PromotionalBanner({ promotions = defaultPromotions, clas
                     className={`flex items-center border border-dashed transition-all ${isSystemDark ? 'border-ember/40 bg-charcoal hover:border-ember' : 'border-ember/40 bg-white hover:border-ember shadow-sm'}`}
                     style={{ borderRadius: '6px' }}
                   >
-                    <span className={`px-3.5 py-1.5 font-mono text-xs md:text-sm font-bold tracking-wider transition-colors ${isSystemDark ? 'text-cream/90 bg-charcoal' : 'text-charcoal bg-white'}`}>
+                    <span className={`px-3.5 py-1.5 font-mono text-xs md:text-sm font-bold tracking-wider transition-colors ${isSystemDark ? 'text-cream/90 bg-charcoal' : 'text-gray-900 bg-white'}`}>
                       {activePromo.discountCode}
                     </span>
                     <button
