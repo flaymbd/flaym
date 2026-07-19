@@ -31,6 +31,7 @@ export default function Layout() {
   const location = useLocation();
   const [deliveryCharge, setDeliveryCharge] = useState(70);
 
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSystemDark, setIsSystemDark] = useState(() => {
     if (typeof window !== 'undefined') {
       return window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -97,22 +98,26 @@ export default function Layout() {
   return (
     <div className="flex flex-col min-h-screen transition-colors duration-300 bg-charcoal text-cream font-sans">
       <header className={`sticky top-0 z-50 flex items-center justify-between px-6 py-4 backdrop-blur-md border-b transition-colors duration-300 ${isSystemDark ? 'bg-charcoal/90 border-ember/20' : 'bg-white/90 border-gray-100'}`}>
-        <Link to="/" className="flex items-center gap-2 text-ember hover:text-ember/80 transition-colors">
-          <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center bg-black">
-            <img 
-              src="/flaym_favicon.jpg" 
-              alt="FLAYM Logo" 
-              className="w-full h-full object-cover"
-              referrerPolicy="no-referrer"
-            />
-          </div>
-          <span className="font-display text-4xl tracking-wider leading-none mt-1">FLAYM</span>
-        </Link>
+        <div className="flex items-center gap-4">
+          <Link to="/" className="flex items-center gap-2 text-ember hover:text-ember/80 transition-colors">
+            <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center bg-black">
+              <img 
+                src="/flaym_favicon.jpg" 
+                alt="FLAYM Logo" 
+                className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+            <span className="font-display text-4xl tracking-wider leading-none mt-1">FLAYM</span>
+          </Link>
+        </div>
+        
         <nav className={`hidden md:flex items-center gap-8 font-medium transition-colors duration-300 ${isSystemDark ? 'text-cream' : 'text-gray-900'}`}>
           <Link to="/" className="hover:text-ember transition-colors">Home</Link>
           <Link to="/menu" className="hover:text-ember transition-colors">Menu</Link>
         </nav>
-        <div className="flex items-center gap-4">
+
+        <div className="flex items-center gap-2 sm:gap-4">
           {/* Organized Profile Dropdown */}
           <div className="relative" ref={dropdownRef}>
             <button 

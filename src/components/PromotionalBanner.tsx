@@ -196,7 +196,7 @@ export default function PromotionalBanner({ promotions = defaultPromotions, clas
               {/* Title */}
               <h2 
                 id={`promo-title-${activePromo.id}`}
-                className={`font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight uppercase leading-none transition-colors duration-300 ${isSystemDark ? 'text-cream' : 'text-gray-900'}`}
+                className={`font-display text-4xl md:text-5xl lg:text-6xl tracking-tight uppercase leading-none transition-colors duration-300 ${isSystemDark ? 'text-cream' : 'text-gray-900'}`}
               >
                 {activePromo.title}
               </h2>

@@ -144,7 +144,7 @@ export default function MenuPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 py-8 md:py-12">
+    <div className="max-w-7xl mx-auto w-full px-6 py-12">
       <Helmet>
         <title>Flaym | Menu - Meatbox & Shawarma</title>
         <meta name="description" content="Explore our legendary menu of flame-grilled Meatboxes and sizzling Shawarmas." />
@@ -156,10 +156,10 @@ export default function MenuPage() {
       <motion.div 
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-8"
+        className="text-center mb-10"
       >
-        <h1 className={`font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl uppercase tracking-tight transition-colors duration-300 ${isSystemDark ? 'text-cream' : 'text-gray-900'}`}>Our <span className="text-ember">Menu</span></h1>
-        <p className={`text-base sm:text-lg md:text-xl mt-3 font-light transition-colors duration-300 ${isSystemDark ? 'text-cream/70' : 'text-gray-800'}`}>Flame-grilled. Bold flavors. Zero regrets.</p>
+        <h1 className={`font-display text-6xl md:text-8xl uppercase tracking-tight transition-colors duration-300 ${isSystemDark ? 'text-cream' : 'text-gray-900'}`}>Our <span className="text-ember">Menu</span></h1>
+        <p className={`text-xl mt-4 font-light transition-colors duration-300 ${isSystemDark ? 'text-cream/70' : 'text-gray-800'}`}>Flame-grilled. Bold flavors. Zero regrets.</p>
       </motion.div>
 
       {/* Real-time Search Bar */}
@@ -246,12 +246,12 @@ export default function MenuPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: catIndex * 0.05 }}
                 >
-                  <h2 className="font-display text-2xl sm:text-3xl md:text-4xl text-ember mb-6 uppercase tracking-wider border-b border-ember/20 pb-3">
+                  <h2 className="font-display text-4xl md:text-5xl text-ember mb-8 uppercase tracking-wider border-b border-ember/20 pb-4">
                     {category}
                   </h2>
                   <motion.div 
                     layout 
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
                   >
                     <AnimatePresence mode="popLayout">
                       {categoryProducts.map(product => (
@@ -264,13 +264,13 @@ export default function MenuPage() {
                           key={product.id} 
                           className={`border hover:border-ember/50 transition-all group flex flex-col h-full shadow-lg overflow-hidden backdrop-blur-xl ${isSystemDark ? 'bg-charcoal/60 border-cream/10' : 'bg-white/80 border-gray-100'}`}
                         >
-                          <div className="h-44 md:h-48 overflow-hidden relative">
+                          <div className="h-48 overflow-hidden relative">
                             <img src={product.image_url} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                             <div className={`absolute inset-0 bg-gradient-to-t to-transparent opacity-40 transition-colors duration-300 ${isSystemDark ? 'from-charcoal' : 'from-white'}`}></div>
                           </div>
-                          <div className={`p-5 md:p-6 flex flex-col flex-grow -mt-6 relative z-10 transition-colors duration-300 ${isSystemDark ? 'bg-charcoal/80' : 'bg-white/90'}`}>
-                            <div className="flex justify-between items-start mb-3">
-                              <h3 className={`text-xl md:text-2xl font-display tracking-wide transition-colors duration-300 ${isSystemDark ? 'text-cream' : 'text-gray-900'}`}>{product.name}</h3>
+                          <div className={`p-6 flex flex-col flex-grow -mt-6 relative z-10 transition-colors duration-300 ${isSystemDark ? 'bg-charcoal/80' : 'bg-white/90'}`}>
+                            <div className="flex justify-between items-start mb-4">
+                              <h3 className={`text-2xl font-display tracking-wide transition-colors duration-300 ${isSystemDark ? 'text-cream' : 'text-gray-900'}`}>{product.name}</h3>
                               <div className="flex flex-col items-end shrink-0">
                                 {flatDiscount > 0 ? (
                                   <>
