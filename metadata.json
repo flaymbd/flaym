@@ -1,0 +1,6 @@
+{
+  "name": "Flaym",
+  "description": "A bold, minimalist food-ordering site for Mirpur, Dhaka featuring AI-powered menu recommendations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

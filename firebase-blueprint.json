@@ -1,0 +1,126 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "A food item in the menu",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "description": { "type": "string" },
+        "cost_price": { "type": "number" },
+        "selling_price": { "type": "number" },
+        "image_url": { "type": "string" },
+        "is_available": { "type": "boolean" },
+        "sort_order": { "type": "number" }
+      },
+      "required": ["name", "category", "selling_price", "is_available"]
+    },
+    "Settings": {
+      "title": "Settings",
+      "description": "Global store settings",
+      "type": "object",
+      "properties": {
+        "delivery_charge": { "type": "number" },
+        "bkash_number": { "type": "string" },
+        "nagad_number": { "type": "string" },
+        "bank_details": { "type": "string" },
+        "delivery_area": { "type": "string" }
+      }
+    },
+    "Order": {
+      "title": "Order",
+      "description": "A customer order",
+      "type": "object",
+      "properties": {
+        "order_number": { "type": "string" },
+        "customer_id": { "type": "string" },
+        "customer_name": { "type": "string" },
+        "phone": { "type": "string" },
+        "address": { "type": "string" },
+        "landmark": { "type": "string" },
+        "payment_method": { "type": "string" },
+        "transaction_id": { "type": "string" },
+        "subtotal": { "type": "number" },
+        "delivery_charge": { "type": "number" },
+        "total": { "type": "number" },
+        "total_cost": { "type": "number" },
+        "status": { "type": "string" },
+        "admin_notes": { "type": "string" },
+        "created_at": { "type": "number" },
+        "updated_at": { "type": "number" }
+      },
+      "required": ["order_number", "customer_name", "phone", "address", "payment_method", "total", "status"]
+    },
+    "OrderItem": {
+      "title": "OrderItem",
+      "description": "An item in an order",
+      "type": "object",
+      "properties": {
+        "product_id": { "type": "string" },
+        "name_snapshot": { "type": "string" },
+        "unit_price": { "type": "number" },
+        "unit_cost": { "type": "number" },
+        "quantity": { "type": "number" },
+        "line_total": { "type": "number" }
+      },
+      "required": ["product_id", "quantity", "line_total"]
+    },
+    "UserRole": {
+      "title": "UserRole",
+      "description": "Role definition for a user",
+      "type": "object",
+      "properties": {
+        "role": { "type": "string", "enum": ["admin", "customer"] }
+      },
+      "required": ["role"]
+    },
+    "Promo": {
+      "title": "Promo",
+      "description": "A promotional discount code",
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "badge": { "type": "string" },
+        "discount_type": { "type": "string", "enum": ["percentage", "fixed"] },
+        "discount_value": { "type": "number" },
+        "is_active": { "type": "boolean" },
+        "category_restriction": { "type": "string" },
+        "expiryText": { "type": "string" },
+        "ctaText": { "type": "string" },
+        "ctaLink": { "type": "string" },
+        "sort_order": { "type": "number" },
+        "created_at": { "type": "number" }
+      },
+      "required": ["code", "discount_type", "discount_value", "is_active"]
+    }
+  },
+  "firestore": {
+    "products/{productId}": {
+      "schema": "Product",
+      "description": "Menu items"
+    },
+    "settings/{settingId}": {
+      "schema": "Settings",
+      "description": "Store settings"
+    },
+    "orders/{orderId}": {
+      "schema": "Order",
+      "description": "Customer orders"
+    },
+    "orders/{orderId}/items/{itemId}": {
+      "schema": "OrderItem",
+      "description": "Items within an order"
+    },
+    "user_roles/{userId}": {
+      "schema": "UserRole",
+      "description": "User roles for RBAC"
+    },
+    "promos/{promoId}": {
+      "schema": "Promo",
+      "description": "Promotional codes and discounts"
+    }
+  }
+}

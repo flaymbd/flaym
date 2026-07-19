@@ -1,0 +1,15 @@
+{
+  "short_name": "FLAYM",
+  "name": "FLAYM | Feel the Heat",
+  "icons": [
+    {
+      "src": "/flaym-favicon.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#121212",
+  "theme_color": "#ff5a1f",
+  "display": "standalone"
+}

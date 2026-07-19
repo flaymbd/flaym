@@ -1,0 +1,123 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == "flaymbd@gmail.com" || 
+        (exists(/databases/$(database)/documents/user_roles/$(request.auth.uid)) && 
+         get(/databases/$(database)/documents/user_roles/$(request.auth.uid)).data.role == "admin")
+      );
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+
+    // --- products ---
+    function isValidProduct(data) {
+      return data.keys().hasAll(['name', 'category', 'selling_price', 'is_available']) &&
+             data.name is string && data.name.size() > 0 && data.name.size() <= 100 &&
+             data.category is string && data.category.size() <= 50 &&
+             data.selling_price is number && data.selling_price >= 0 &&
+             data.is_available is bool;
+    }
+
+    match /products/{productId} {
+      allow read: if true; // Public read
+      allow create: if isAdmin() && isValidId(productId) && isValidProduct(incoming());
+      allow update: if isAdmin() && isValidId(productId) && isValidProduct(incoming());
+      allow delete: if isAdmin() && isValidId(productId);
+    }
+
+    // --- settings ---
+    match /settings/{settingId} {
+      allow read: if true; // Public read
+      allow create, update, delete: if isAdmin() && isValidId(settingId);
+    }
+
+    // --- user_roles ---
+    match /user_roles/{userId} {
+      allow read: if isSignedIn() && request.auth.uid == userId; // Users can read their own role
+      allow create: if isSignedIn() && request.auth.uid == userId && (
+        (incoming().role == 'admin' && request.auth.token.email == 'flaymbd@gmail.com') ||
+        (incoming().role == 'customer')
+      );
+      allow update, delete: if isAdmin(); // Admins can manage all roles
+    }
+
+    // --- orders ---
+    function isValidOrder(data) {
+      return data.keys().hasAll(['order_number', 'customer_name', 'phone', 'address', 'payment_method', 'total', 'status']) &&
+             data.order_number is string && data.order_number.size() > 0 && data.order_number.size() <= 50 &&
+             data.customer_name is string && data.customer_name.size() > 0 && data.customer_name.size() <= 100 &&
+             data.phone is string && data.phone.size() > 0 && data.phone.size() <= 20 &&
+             data.address is string && data.address.size() > 0 && data.address.size() <= 500 &&
+             data.payment_method is string && data.payment_method.size() <= 50 &&
+             data.total is number && data.total >= 0 &&
+             data.status is string && data.status.size() <= 50;
+    }
+
+    match /orders/{orderId} {
+      // Create: Public can create an order.
+      allow create: if isValidId(orderId) && isValidOrder(incoming());
+      
+      // Update: Admin can update any order.
+      allow update: if isValidId(orderId) && isValidOrder(incoming()) && isAdmin();
+
+      // Read: Admin can read all.
+      // Customer can read their own orders.
+      allow get: if isAdmin() || (isSignedIn() && existing().customer_id == request.auth.uid) || true; // True for MVP guest tracking
+      
+      // List: Admin can list all. Customers can list their own. Public can't list.
+      allow list: if isAdmin() || (isSignedIn() && resource.data.customer_id == request.auth.uid) || true; // Open list for MVP to allow guest order tracking by phone + order_number
+    }
+
+    // --- order items ---
+    function isValidOrderItem(data) {
+      return data.keys().hasAll(['product_id', 'quantity', 'line_total']) &&
+             data.product_id is string && data.product_id.size() > 0 && data.product_id.size() <= 128 &&
+             data.quantity is number && data.quantity > 0 &&
+             data.line_total is number && data.line_total >= 0;
+    }
+
+    match /orders/{orderId}/items/{itemId} {
+      // Allow create if the parent order is being created in the same batch (handled implicitly, or we just allow if parent exists or is created)
+      // For simplicity, public can create items (part of placing an order batch).
+      allow create: if isValidId(itemId) && isValidOrderItem(incoming());
+      allow update, delete: if isAdmin();
+      
+      // Inherit read access from parent order
+      allow read: if isAdmin() || 
+                  (isSignedIn() && get(/databases/$(database)/documents/orders/$(orderId)).data.customer_id == request.auth.uid) || true;
+    }
+
+    // --- promos ---
+    function isValidPromo(data) {
+      return data.keys().hasAll(['code', 'discount_type', 'discount_value', 'is_active']) &&
+             data.code is string && data.code.size() > 0 && data.code.size() <= 50 &&
+             data.discount_type is string && (data.discount_type == 'percentage' || data.discount_type == 'fixed') &&
+             data.discount_value is number && data.discount_value >= 0 &&
+             data.is_active is bool;
+    }
+
+    match /promos/{promoId} {
+      allow read: if true; // Public read
+      allow create: if isAdmin() && isValidId(promoId) && isValidPromo(incoming());
+      allow update: if isAdmin() && isValidId(promoId) && isValidPromo(incoming());
+      allow delete: if isAdmin() && isValidId(promoId);
+    }
+  }
+}
